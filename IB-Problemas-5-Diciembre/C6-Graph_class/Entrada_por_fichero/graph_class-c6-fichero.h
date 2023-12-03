@@ -6,7 +6,7 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief The program
+  * @brief This is the header file for the program graph_class-c6-fichero
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C6)

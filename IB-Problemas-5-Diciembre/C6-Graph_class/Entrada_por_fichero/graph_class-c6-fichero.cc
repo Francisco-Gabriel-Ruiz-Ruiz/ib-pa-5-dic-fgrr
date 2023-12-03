@@ -6,7 +6,8 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief The program
+  * @brief The main program reads from a file a graph, checks if it is a valid
+  *        one and prints it.
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C6)
