@@ -20,13 +20,28 @@
 
 #include "graph_class-c6-fichero.h"
 
+/**
+ * @brief The constructor for the Graph class
+ * @param vertex_number The total vertexes of the user graph
+ * @param edge_number The total edges of the user graph
+ **/
 Graph::Graph(int vertex_number, int edge_number) : vertex_number_{vertex_number}, edge_number_{edge_number} { }
 
+/**
+ * @brief The function inserts a pair of vertexes into the object's vector
+ * @param starting_value The starting point of the node
+ * @param ending_value The desination point of the starting value
+*/
 void Graph::InsertPairOfVertexes(int starting_value, int ending_value) {
   starting_graph_values_.emplace_back(starting_value);
   ending_graph_values_.emplace_back(ending_value);
 }
 
+/**
+ * @brief Writes all the pair of vertexes the object Graph has to the output
+ *        file set by the user
+ * @param output_file The file that the program will write to
+ **/
 void Graph::PrintPairOfVertexes(std::ofstream& output_file) const {
   output_file << vertex_number_ << " " << edge_number_ << '\n';
   for (std::size_t counter{0}; counter < starting_graph_values_.size(); ++counter) {
@@ -39,12 +54,30 @@ void Graph::PrintPairOfVertexes(std::ofstream& output_file) const {
   }
 }
 
+/**
+ * @brief Reads the user file that has the total amount of vertexes
+ *        and edges the graph will have
+ * @param graph_vertexes The total amount of vertexes (passed by reference)
+ *                        the graph will have
+ * @param graph_edges The total amount of edges (passed by reference)
+ *                    the graph will have
+ * @param user_input_file The file that the program will read
+ **/
 void ReadUserInitialGraphData(int& graph_vertexes, int& graph_edges,
                               std::ifstream& user_input_file) {
   user_input_file >> graph_vertexes;
   user_input_file >> graph_edges;
 }
 
+/**
+ * @brief The function checks whether the total amount of vertexes and edges
+ *        is valid for a graph
+ * @param graph_vertexes The total amount of vertexes (passed by reference)
+ *                        the graph should have
+ * @param graph_edges The total amount of edges (passed by reference)
+ *                    the graph should have
+ * @return The function returns by a boolean value if both inputs are correct
+ **/
 bool ValidInitialGraphData(int graph_vertexes, int graph_edges) {
   if (graph_vertexes < 1) {
     std::cerr << "No hay un número de vértices válido" << '\n';
@@ -57,7 +90,11 @@ bool ValidInitialGraphData(int graph_vertexes, int graph_edges) {
   return (graph_vertexes > 1 && graph_edges > 1 && graph_vertexes > graph_edges);
 }
 
-// In this function the first two values should not be read
+/**
+ * @brief The function reads as many pairs of vertexes as the user desires
+ * @param user_graph The object Graph that will store all pairs of vertexes
+ * @param user_input_file The file that the program will read
+ **/
 void ReadUserPairOfVertexes(Graph& user_graph, std::ifstream& user_input_file) {
   int starting_value;
   while (user_input_file >> starting_value) {
@@ -70,6 +107,13 @@ void ReadUserPairOfVertexes(Graph& user_graph, std::ifstream& user_input_file) {
   }
 }
 
+/**
+ * @brief The function obtains a list of all the distinct values the pairs of
+ *        vertexes have
+ * @param user_graph The object Graph that stores all pairs of vertexes
+ * @return The function returns an unordered_set of integers of all the
+ *         different values that the pairs have
+ **/
 std::unordered_set<int> ObtainUniqueValuesFromPairs(const Graph& user_graph) {
   std::vector<int> starting_graph_values{user_graph.GetStartingGraphValues()};
   std::vector<int> ending_graph_values{user_graph.GetEndingGraphValues()};
@@ -83,11 +127,30 @@ std::unordered_set<int> ObtainUniqueValuesFromPairs(const Graph& user_graph) {
   return unique_values;
 }
 
+/**
+ * @brief The function gets the total amount of pairs of vertexes the user
+ *        has inputted.
+ * @param user_graph The object Graph that stores all pairs of vertexes
+ * @return The function returns as an integer the total amount of pairs of
+ *         vertexes stored in the object Graph
+ **/
 int ObtainAmountOfPairs(const Graph& user_graph) {
   std::vector<int> amount_of_pairs{user_graph.GetEndingGraphValues()};
   return static_cast<int>(amount_of_pairs.size());
 }
 
+/**
+ * @brief The function checks whether all digits of the pairs of vertexes are
+ *        inside the allowed range (equal to the total amount of edges or less)
+ * @param unique_pair_values A list of all the distinct values the pairs of
+ *                           vertexes have
+ * @param user_graph The object Graph that stores all pairs of vertexes and
+ *                   total amount of vertexes and edges
+ * @param infraction_numbers A list that will store the numbers that are out
+ *                           of the valid range (if any)
+ * @return The function returns in a boolean value of any number is out of the
+ *         allowed range
+ **/
 bool ValuesOfPairsInRange(std::unordered_set<int> unique_pair_values,
                           const Graph& user_graph,
                           std::vector<int>& infraction_numbers) {
@@ -102,6 +165,13 @@ bool ValuesOfPairsInRange(std::unordered_set<int> unique_pair_values,
   return is_clean;
 }
 
+/**
+ * @brief The function prints all of the numbers (if any) that are out of the
+ *        allowed range (equal to the total amount of edges or less) from the
+ *        pairs of vertexes provided by the user
+ * @param infraction_numbers A list with all of the numbers that are out of
+ *                           the allowed range
+ **/
 void PrintInfractionNumbers(const std::vector<int>& infraction_numbers) {
   for (std::size_t counter{0}; counter < infraction_numbers.size(); ++counter) {
     std::cerr << infraction_numbers[counter];
@@ -112,6 +182,13 @@ void PrintInfractionNumbers(const std::vector<int>& infraction_numbers) {
   std::cerr << '\n';
 }
 
+/**
+ * @brief The function checks whether any of the pairs of vertexes is valid or
+ *        not
+ * @param user_graph The object Graph that stores all pairs of vertexes
+ * @return The function returns in a boolean value if any pair of vertexes
+ *         violates the rules set for a graph to be correct
+ **/
 bool ValidPairs(const Graph& user_graph) {
   std::unordered_set<int> unique_pair_values{ObtainUniqueValuesFromPairs(user_graph)};
   int number_of_different_vertexes{static_cast<int>(unique_pair_values.size())};
@@ -131,6 +208,9 @@ bool ValidPairs(const Graph& user_graph) {
          ValuesOfPairsInRange(unique_pair_values, user_graph, infraction_numbers);
 }
 
+/**
+ * @brief Prints the program purpose
+ **/
 void PrintProgramPurpose() {
   std::cout << "Introduzca un fichero con los datos de un grafo en el "
                "programa, y este le indicará si es válido o no. " << '\n' <<
@@ -141,6 +221,9 @@ void PrintProgramPurpose() {
   PrintFileHelp();
 }
 
+/**
+ * @brief Prints how to execute its command
+ **/
 void PrintFileHelp() {
   std::cout << "Método de uso del programa con ficheros:" << '\n' <<
                "./graph_class-c6-fichero <fichero_de_entrada> " <<
@@ -151,6 +234,14 @@ void PrintFileHelp() {
                '\n' << "Para más información, consulte el README.md" << '\n';
 }
 
+/**
+ * @brief The function checks whether the user file that will be opened can be
+ *        actually opened or not.
+ * @param user_file_name The user file name that will be checked now.
+ * @param user_file The user file that will be later read and checked now.
+ * @return The function returns in a bool value if the file was openend
+ *         successfully or not, in which case it notifies the user.
+ **/
 bool CanOpenFile(const std::string& user_file_name, std::ifstream& user_file) {
   bool can_open_file{true};
   if (!user_file) {

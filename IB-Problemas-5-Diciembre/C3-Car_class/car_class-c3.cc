@@ -6,7 +6,8 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief The program
+  * @brief The main program reads car data, later printing it whilst grouping
+  *        the cars by type and indicating the highest price.
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C3)
@@ -20,11 +21,21 @@
 
 #include "car_class-c3.h"
 
+/**
+ * @brief The constructor for the class Car
+ * @param brand_of_car The brand associated to the Car object
+ * @param model_of_car The model associated to the Car object
+ * @param type_of_car The type associated to the Car object
+ * @param price_of_car The price associated to the Car object
+ **/
 Car::Car(std::string brand_of_car, std::string model_of_car,
     std::string type_of_car, double price_of_car) : brand_of_car_{brand_of_car},
     model_of_car_{model_of_car}, type_of_car_{type_of_car},
     price_of_car_{price_of_car} { }
 
+/**
+ * @brief Prints the program purpose and how to execute its command
+ **/
 void PrintProgramPurpose() {
   std::cerr << "Introduzca el número de coches que desee detallar " <<
                "posteriormente en el programa:" << '\n' <<
@@ -33,7 +44,13 @@ void PrintProgramPurpose() {
                "más adelante en el programa." << '\n';
 }
 
-void ReadUserCarTypes(int number_of_user_cars, std::vector<Car>& list_of_user_cars) {
+/**
+ * @brief Reads the Car object data from the keyboard
+ * @param number_of_user_cars Amount of Cars the program expects to read
+ * @param list_of_user_cars List that stores all the object Cars the user
+ *                          inputs
+ **/
+void ReadUserCarData(int number_of_user_cars, std::vector<Car>& list_of_user_cars) {
   std::string brand_of_car;
   std::string model_of_car;
   std::string type_of_car;
@@ -54,12 +71,24 @@ void ReadUserCarTypes(int number_of_user_cars, std::vector<Car>& list_of_user_ca
   }
 }
 
+/**
+ * @brief Overloads the << operator by printing all the Car object data
+ * @param out Necessary for the overload
+ * @param user_car The Car object that will be printed
+ * @return Prints the Car object data with comas in between
+ **/
 std::ostream& operator<<(std::ostream& out, const Car& user_car) {
   out << user_car.brand_of_car_ << ", " << user_car.model_of_car_ << ", " <<
          user_car.type_of_car_ << ", " << user_car.price_of_car_;
   return out;
 }
 
+/**
+ * @brief Prints all the Car objects grouping them by types and indicating
+ *        the price that is highest.
+ * @param list_of_user_cars List that stores all the object Cars the user
+ *                          has inputted.
+*/
 void PrintCars(std::vector<Car>& list_of_user_cars) {
   std::cout << "==============" << '\n';
   std::vector<std::string> unique_car_types;
@@ -79,6 +108,7 @@ void PrintCars(std::vector<Car>& list_of_user_cars) {
       if (current_car.GetTypeOfCar() == current_type) {
         std::cout << current_car << '\n';
         max_price = std::max(max_price, current_car.GetPriceOfCar());
+        // Prevents bugs
         found_type = true;
       }
     }

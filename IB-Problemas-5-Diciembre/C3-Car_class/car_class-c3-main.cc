@@ -6,7 +6,8 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief The program
+  * @brief The program reads car data, later printing it whilst grouping the
+  *        cars by type and indicating the highest price.
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C3)
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]) {
   }
   int number_of_user_cars{std::atoi(argv[1])};
   std::vector<Car> list_of_user_cars;
-  ReadUserCarTypes(number_of_user_cars, list_of_user_cars);
+  ReadUserCarData(number_of_user_cars, list_of_user_cars);
   PrintCars(list_of_user_cars);
   return 0;
 }

@@ -6,7 +6,7 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief The program
+  * @brief This is the header file for the programs car_classc3
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C3)
@@ -44,7 +44,7 @@ class Car {
 };
 
 void PrintProgramPurpose();
-void ReadUserCarTypes(int number_of_user_cars, std::vector<Car>& list_of_user_cars);
+void ReadUserCarData(int number_of_user_cars, std::vector<Car>& list_of_user_cars);
 void PrintCars(std::vector<Car>& list_of_user_cars);
 
 #endif
