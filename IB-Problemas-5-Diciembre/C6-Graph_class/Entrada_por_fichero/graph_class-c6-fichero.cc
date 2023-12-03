@@ -14,63 +14,42 @@
   */
 
 #include <iostream>
-#include<vector>
+#include <vector>
 #include <unordered_set> // To keep track of unique numbers in a vertex
+#include <fstream>
 
-class Graph {
- public:
-  Graph(int vertex_number, int edge_number) : vertex_number_{vertex_number}, edge_number_{edge_number} { }
-  friend std::ostream& operator<<(std::ostream& out, const Graph& user_graph);
-  int GetVertexNumber() const {
-    return vertex_number_;
-  }
-  int GetEdgeNumber() const {
-    return edge_number_;
-  }
-  std::vector<int> GetStartingGraphValues() const {
-    return starting_graph_values_;
-  }
-  std::vector<int> GetEndingGraphValues() const {
-    return ending_graph_values_;
-  }
-  void InsertPairOfVertexes(int starting_value, int ending_value) {
-    starting_graph_values_.emplace_back(starting_value);
-    ending_graph_values_.emplace_back(ending_value);
-  }
-  void PrintPairOfVertexes() const {
-    for (std::size_t counter{0}; counter < starting_graph_values_.size(); ++counter) {
-      std::cout << starting_graph_values_[counter] << " " <<
-                   ending_graph_values_[counter];
-      if (counter + 1 != starting_graph_values_.size()) {
-        std::cout << '\n';
-      }
-    }
-  }
- private:
-  int vertex_number_;
-  int edge_number_;
-  std::vector<int> starting_graph_values_;
-  std::vector<int> ending_graph_values_;
-};
+#include "graph_class-c6-fichero.h"
 
-void ReadUserInitialGraphData(int& graph_vertexes, int& graph_edges) {
-  std::cout << "Introduzca la cantidad de vértices de su grafo: ";
-  std::cin >> graph_vertexes;
-  std::cout << "Introduzca la cantidad de aristas de su grafo: ";
-  std::cin >> graph_edges;
+Graph::Graph(int vertex_number, int edge_number) : vertex_number_{vertex_number}, edge_number_{edge_number} { }
+
+void Graph::InsertPairOfVertexes(int starting_value, int ending_value) {
+  starting_graph_values_.emplace_back(starting_value);
+  ending_graph_values_.emplace_back(ending_value);
 }
 
-std::ostream& operator<<(std::ostream& out, const Graph& user_graph) {
-  out << user_graph.vertex_number_ << " " << user_graph.edge_number_ << '\n';
-  user_graph.PrintPairOfVertexes();
-  return out;
+void Graph::PrintPairOfVertexes(std::ofstream& output_file) const {
+  output_file << vertex_number_ << " " << edge_number_ << '\n';
+  for (std::size_t counter{0}; counter < starting_graph_values_.size(); ++counter) {
+    
+    output_file << starting_graph_values_[counter] << " " <<
+                   ending_graph_values_[counter];
+    if (counter + 1 != starting_graph_values_.size()) {
+      output_file << '\n';
+    }
+  }
+}
+
+void ReadUserInitialGraphData(int& graph_vertexes, int& graph_edges,
+                              std::ifstream& user_input_file) {
+  user_input_file >> graph_vertexes;
+  user_input_file >> graph_edges;
 }
 
 bool ValidInitialGraphData(int graph_vertexes, int graph_edges) {
   if (graph_vertexes < 1) {
-    std::cerr << "Introduzca un número de vértices válido" << '\n';
+    std::cerr << "No hay un número de vértices válido" << '\n';
   } else if (graph_edges < 1) {
-    std::cerr << "Introduzca un número de aristas válido" << '\n';
+    std::cerr << "No hay un número de aristas válido" << '\n';
   } else if (graph_vertexes - 1 != graph_edges) {
     std::cerr << "Su grafo no puede contener un mismo o mayor número de " <<
                  "aristas que de vértices." << '\n';
@@ -78,16 +57,15 @@ bool ValidInitialGraphData(int graph_vertexes, int graph_edges) {
   return (graph_vertexes > 1 && graph_edges > 1 && graph_vertexes > graph_edges);
 }
 
-void ReadUserPairOfVertexes(Graph& user_graph) {
-  while (true) {
-    std::cout << "Introduzca su par de vértices (-1 para finalizar): ";
-    int starting_value;
-    std::cin >> starting_value;
+// In this function the first two values should not be read
+void ReadUserPairOfVertexes(Graph& user_graph, std::ifstream& user_input_file) {
+  int starting_value;
+  while (user_input_file >> starting_value) {
     if (starting_value == -1) {
       break;
     }
     int ending_value;
-    std::cin >> ending_value;
+    user_input_file >> ending_value;
     user_graph.InsertPairOfVertexes(starting_value, ending_value);
   }
 }
@@ -106,7 +84,7 @@ std::unordered_set<int> ObtainUniqueValuesFromPairs(const Graph& user_graph) {
 }
 
 int ObtainAmountOfPairs(const Graph& user_graph) {
-  std::vector<int> amount_of_pairs{user_graph.GetStartingGraphValues()};
+  std::vector<int> amount_of_pairs{user_graph.GetEndingGraphValues()};
   return static_cast<int>(amount_of_pairs.size());
 }
 
@@ -140,11 +118,11 @@ bool ValidPairs(const Graph& user_graph) {
   int amount_of_pairs{ObtainAmountOfPairs(user_graph)};
   if ((number_of_different_vertexes != user_graph.GetVertexNumber()) || 
       (amount_of_pairs != user_graph.GetEdgeNumber())) {
-    std::cerr << "Introduzca unos pares de vértices válidos." << '\n';
+    std::cerr << "Existen unos pares de vértices no válidos." << '\n';
   }
   std::vector<int> infraction_numbers;
   if (!ValuesOfPairsInRange(unique_pair_values, user_graph, infraction_numbers)) {
-    std::cerr << "Ha introducido al menos un número en un par que no " <<
+    std::cerr << "Existe al menos un número en un par que no " <<
                  "es válido (por ser mayor que el número de aristas): ";
     PrintInfractionNumbers(infraction_numbers);
   }
@@ -153,18 +131,32 @@ bool ValidPairs(const Graph& user_graph) {
          ValuesOfPairsInRange(unique_pair_values, user_graph, infraction_numbers);
 }
 
-int main() {
-  int graph_vertexes;
-  int graph_edges;
-  ReadUserInitialGraphData(graph_vertexes, graph_edges);
-  if (!ValidInitialGraphData(graph_vertexes, graph_edges)) {
-    return 1;
+void PrintProgramPurpose() {
+  std::cout << "Introduzca un fichero con los datos de un grafo en el "
+               "programa, y este le indicará si es válido o no. " << '\n' <<
+               "Para introducir los pares de vértices, hágalo separando " <<
+               "los números con un espacio. Cuando el programa lea -1, " <<
+               "este concluirá la lectura de los pares de vértices." << '\n'
+               << '\n';
+  PrintFileHelp();
+}
+
+void PrintFileHelp() {
+  std::cout << "Método de uso del programa con ficheros:" << '\n' <<
+               "./graph_class-c6-fichero <fichero_de_entrada> " <<
+               "<fichero_de_salida>" << '\n' << "El programa reescribirá el " <<
+               "fichero de salida si este ya existe." << '\n' << "No se " <<
+               "olvide de incluir las extensiones de su archivo." << '\n' <<
+               "Se propone el uso de los archivos incluidos con el programa." <<
+               '\n' << "Para más información, consulte el README.md" << '\n';
+}
+
+bool CanOpenFile(const std::string& user_file_name, std::ifstream& user_file) {
+  bool can_open_file{true};
+  if (!user_file) {
+    std::cerr << "El archivo " << user_file_name << " no se pudo abrir." <<
+                 '\n';
+    can_open_file = false;
   }
-  Graph user_graph{graph_vertexes, graph_edges};
-  ReadUserPairOfVertexes(user_graph);
-  if (!ValidPairs(user_graph)) {
-    return 2;
-  }
-  std::cout << user_graph << '\n' << "Su grafo es válido." << '\n';
-  return 0;
+  return can_open_file;
 }

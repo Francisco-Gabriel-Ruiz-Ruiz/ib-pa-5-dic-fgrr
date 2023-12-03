@@ -27,11 +27,11 @@ void Graph::InsertPairOfVertexes(int starting_value, int ending_value) {
 }
 
 void Graph::PrintPairOfVertexes() const {
-    for (std::size_t counter{0}; counter < starting_graph_values_.size(); ++counter) {
-      std::cout << starting_graph_values_[counter] << " " <<
-                 ending_graph_values_[counter];
+  for (std::size_t counter{0}; counter < starting_graph_values_.size(); ++counter) {
+    std::cout << starting_graph_values_[counter] << " " <<
+               ending_graph_values_[counter];
     if (counter + 1 != starting_graph_values_.size()) {
-        std::cout << '\n';
+      std::cout << '\n';
     }
   }
 }
@@ -140,5 +140,6 @@ void PrintProgramPurpose() {
   std::cout << "Introduzca los datos de un grafo en el programa, y este le " <<
                "indicará si es válido o no. " << '\n' << "Para introducir " <<
                "los pares de vértices, hágalo separando los números con un " <<
-               "espacio." << '\n';
+               "espacio." << '\n' << "Para más información, consulte el " <<
+               "README.md" << '\n';
 }
