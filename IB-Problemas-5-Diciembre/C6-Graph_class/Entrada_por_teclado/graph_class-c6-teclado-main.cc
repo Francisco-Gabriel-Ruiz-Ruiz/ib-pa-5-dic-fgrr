@@ -14,8 +14,6 @@
   */
 
 #include <iostream>
-#include<vector>
-#include <unordered_set> // To keep track of unique numbers in a vertex
 
 #include "graph_class-c6-teclado.h"
 
@@ -24,6 +22,7 @@ int main() {
   int graph_edges;
   ReadUserInitialGraphData(graph_vertexes, graph_edges);
   if (!ValidInitialGraphData(graph_vertexes, graph_edges)) {
+    PrintProgramPurpose();
     return 1;
   }
   Graph user_graph{graph_vertexes, graph_edges};

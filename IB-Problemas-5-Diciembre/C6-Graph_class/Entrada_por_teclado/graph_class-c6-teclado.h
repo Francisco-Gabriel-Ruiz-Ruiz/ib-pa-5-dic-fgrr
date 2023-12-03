@@ -17,7 +17,7 @@
 #define GRAPH_CLASS_C6_TECLADO_H
 
 #include <iostream>
-#include<vector>
+#include <vector>
 #include <unordered_set> // To keep track of unique numbers in a vertex
 
 class Graph {
@@ -55,5 +55,6 @@ bool ValuesOfPairsInRange(std::unordered_set<int> unique_pair_values,
                           std::vector<int>& infraction_numbers);
 void PrintInfractionNumbers(const std::vector<int>& infraction_numbers);
 bool ValidPairs(const Graph& user_graph);
+void PrintProgramPurpose();
 
 #endif

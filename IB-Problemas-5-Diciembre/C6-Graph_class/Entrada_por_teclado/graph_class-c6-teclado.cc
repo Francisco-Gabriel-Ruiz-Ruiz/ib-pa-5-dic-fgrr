@@ -14,7 +14,7 @@
   */
 
 #include <iostream>
-#include<vector>
+#include <vector>
 #include <unordered_set> // To keep track of unique numbers in a vertex
 
 #include "graph_class-c6-teclado.h"
@@ -134,4 +134,11 @@ bool ValidPairs(const Graph& user_graph) {
   return (number_of_different_vertexes == user_graph.GetVertexNumber()) &&
          (amount_of_pairs == user_graph.GetEdgeNumber()) &&
          ValuesOfPairsInRange(unique_pair_values, user_graph, infraction_numbers);
+}
+
+void PrintProgramPurpose() {
+  std::cout << "Introduzca los datos de un grafo en el programa, y este le " <<
+               "indicará si es válido o no. " << '\n' << "Para introducir " <<
+               "los pares de vértices, hágalo separando los números con un " <<
+               "espacio." << '\n';
 }
