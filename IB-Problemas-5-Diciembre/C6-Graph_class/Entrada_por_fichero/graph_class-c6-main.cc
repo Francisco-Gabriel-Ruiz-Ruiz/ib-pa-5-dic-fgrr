@@ -16,6 +16,7 @@
 #include <iostream>
 #include<vector>
 #include <unordered_set> // To keep track of unique numbers in a vertex
+
 class Graph {
  public:
   Graph(int vertex_number, int edge_number) : vertex_number_{vertex_number}, edge_number_{edge_number} { }
@@ -136,17 +137,15 @@ void PrintInfractionNumbers(const std::vector<int>& infraction_numbers) {
 bool ValidPairs(const Graph& user_graph) {
   std::unordered_set<int> unique_pair_values{ObtainUniqueValuesFromPairs(user_graph)};
   int number_of_different_vertexes{static_cast<int>(unique_pair_values.size())};
-  if (number_of_different_vertexes != user_graph.GetVertexNumber()) {
-    std::cerr << "Introduzca unos pares de vértices válidos." << '\n';
-  }
   int amount_of_pairs{ObtainAmountOfPairs(user_graph)};
-  if (amount_of_pairs != user_graph.GetEdgeNumber()) {
+  if ((number_of_different_vertexes != user_graph.GetVertexNumber()) || 
+      (amount_of_pairs != user_graph.GetEdgeNumber())) {
     std::cerr << "Introduzca unos pares de vértices válidos." << '\n';
   }
   std::vector<int> infraction_numbers;
   if (!ValuesOfPairsInRange(unique_pair_values, user_graph, infraction_numbers)) {
     std::cerr << "Ha introducido al menos un número en un par que no " <<
-                 "es válido: ";
+                 "es válido (por ser mayor que el número de aristas): ";
     PrintInfractionNumbers(infraction_numbers);
   }
   return (number_of_different_vertexes == user_graph.GetVertexNumber()) &&
