@@ -4,6 +4,8 @@ Adjunto en este repositorio de GitHub los problemas de la Hoja 4 (Clases) de Inf
 Hoja 4: https://docs.google.com/document/d/1fhEb_ZNedTt9hqpUGUrurLdboTgmFIaW3wRv39iL4qU/edit
 
 Todos los programas requieren el uso del Makefile adjuntado si desea ejecutarlos.
+Programas desarrollados por Francisco Gabriel Ruiz Ruiz
+1º Ingeniería Informática, Universidad de La Laguna
 
 ## C3-Car_class
 Este programa lee los datos de los coches que desee y los imprime en un cierto orden. Introduzca separado por un espacio del comando la cantidad de coches que desea documentar. Se le pedirá el nombre del coche, su tipo, modelo y precio más adelante en el programa. Este organizará todos los coches que ha detallado en su tipo, y adjuntará el precio más alto de los coches que se encuentren en un mismo grupo.
@@ -27,4 +29,4 @@ Para ejecutar el programa por teclado en `Entrada_por_teclado`:
 `./graph_class-c6-teclado`
 (A partir de su ejecución, el programa le guiará para introducir todos los datos del grafo)
 
-`Programas desarrollados por Francisco Gabriel Ruiz Ruiz`
+
