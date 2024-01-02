@@ -13,11 +13,9 @@ all: $(TARGET)
 $(TARGET): $(files)
 	@$(CXX) $(CXXFLAGS) $(files)
 
-
 .PHONY: clean
 clean:
 	@rm $(TARGET)
-
 
 .PHONY: help
 help:
