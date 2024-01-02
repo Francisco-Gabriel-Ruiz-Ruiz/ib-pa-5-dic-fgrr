@@ -15,14 +15,20 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #ifndef CAR_CLASS_C3_H
 #define CAR_CLASS_C3_H
 
 class Car {
  public:
-  Car(std::string brand_of_car, std::string model_of_car,
-      std::string type_of_car, double price_of_car);
+  Car(const std::string& brand_of_car, const std::string& model_of_car, const std::string& type_of_car, const double& price_of_car) {
+    brand_of_car_ = brand_of_car;
+    model_of_car_ = model_of_car;
+    type_of_car_ = type_of_car;
+    price_of_car_ = price_of_car;
+  }
+
   std::string GetBrandOfCar() const {
     return brand_of_car_;
   }
@@ -35,16 +41,17 @@ class Car {
   double GetPriceOfCar() const {
     return price_of_car_;
   }
+
   friend std::ostream& operator<<(std::ostream &out, const Car &point);
  private:
-  const std::string brand_of_car_;
-  const std::string model_of_car_;
-  const std::string type_of_car_;
-  const double price_of_car_;
+  std::string brand_of_car_ = "";
+  std::string model_of_car_ = "";
+  std::string type_of_car_ = "";
+  double price_of_car_ = 0;
 };
 
 void PrintProgramPurpose();
-void ReadUserCarData(int number_of_user_cars, std::vector<Car>& list_of_user_cars);
-void PrintCars(std::vector<Car>& list_of_user_cars);
+void ReadUserCarData(const int&, std::vector<Car>&);
+void PrintCars(const std::vector<Car>&);
 
 #endif
