@@ -1,0 +1,16 @@
+# Universidad de La Laguna
+# Escuela Superior de Ingeniería y Tecnología
+# Grado en Ingeniería Informática
+# Informática Básica
+#
+# @author Francisco Gabriel Ruiz Ruiz
+# @date Nov 13 2023
+# @brief This is the .gitignore file of the repository of the PA Problems
+#        for the 14th of November of the subject Informática Básica. It
+#        ignores executable files.
+# @bug There are no known bugs
+# @see https://github.com/Francisco-Gabriel-Ruiz-Ruiz/IB-Problemas-14-Noviembre.git
+# @contact alu0101618586@ull.edu.es
+
+# Ignores executable files
+*.out
