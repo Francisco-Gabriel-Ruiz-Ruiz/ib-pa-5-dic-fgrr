@@ -6,7 +6,7 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief This is the header file for the programs car_classc3
+  * @brief This is the header file for the programs car_class-c3
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C3)
@@ -23,24 +23,24 @@ class Car {
  public:
   Car(std::string brand_of_car, std::string model_of_car,
       std::string type_of_car, double price_of_car);
-  std::string GetBrandOfCar() {
+  std::string GetBrandOfCar() const {
     return brand_of_car_;
   }
-  std::string GetModelOfCar() {
+  std::string GetModelOfCar() const {
     return model_of_car_;
   }
-  std::string GetTypeOfCar() {
+  std::string GetTypeOfCar() const {
     return type_of_car_;
   }
-  double GetPriceOfCar() {
+  double GetPriceOfCar() const {
     return price_of_car_;
   }
   friend std::ostream& operator<<(std::ostream &out, const Car &point);
  private:
-  std::string brand_of_car_;
-  std::string model_of_car_;
-  std::string type_of_car_;
-  double price_of_car_;
+  const std::string brand_of_car_;
+  const std::string model_of_car_;
+  const std::string type_of_car_;
+  const double price_of_car_;
 };
 
 void PrintProgramPurpose();

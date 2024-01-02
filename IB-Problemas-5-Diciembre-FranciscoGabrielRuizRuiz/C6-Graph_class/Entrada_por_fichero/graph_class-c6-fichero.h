@@ -6,7 +6,7 @@
   *
   * @author Francisco Gabriel Ruiz Ruiz
   * @date Dec 3
-  * @brief This is the header file for the program graph_class-c6-teclado
+  * @brief This is the header file for the program graph_class-c6-fichero
   * @bug There are no known bugs
   * @see Hoja 4 Classes ULL
   *      (Exercise C6)
@@ -37,17 +37,18 @@ class Graph {
     return ending_graph_values_;
   }
   void InsertPairOfVertexes(int starting_value, int ending_value);
-  void PrintPairOfVertexes() const;
+  void PrintPairOfVertexes(std::ofstream& output_file) const;
  private:
-  int vertex_number_;
-  int edge_number_;
+  const int vertex_number_;
+  const int edge_number_;
   std::vector<int> starting_graph_values_;
   std::vector<int> ending_graph_values_;
 };
 
-void ReadUserInitialGraphData(int& graph_vertexes, int& graph_edges);
+void ReadUserInitialGraphData(int& graph_vertexes, int& graph_edges,
+                              std::ifstream& user_input_file);
 bool ValidInitialGraphData(int graph_vertexes, int graph_edges);
-void ReadUserPairOfVertexes(Graph& user_graph);
+void ReadUserPairOfVertexes(Graph& user_graph, std::ifstream& user_input_file);
 std::unordered_set<int> ObtainUniqueValuesFromPairs(const Graph& user_graph);
 int ObtainAmountOfPairs(const Graph& user_graph);
 bool ValuesOfPairsInRange(std::unordered_set<int> unique_pair_values,
@@ -56,5 +57,7 @@ bool ValuesOfPairsInRange(std::unordered_set<int> unique_pair_values,
 void PrintInfractionNumbers(const std::vector<int>& infraction_numbers);
 bool ValidPairs(const Graph& user_graph);
 void PrintProgramPurpose();
+void PrintFileHelp();
+bool CanOpenFile(const std::string& user_file_name, std::ifstream& user_file);
 
 #endif

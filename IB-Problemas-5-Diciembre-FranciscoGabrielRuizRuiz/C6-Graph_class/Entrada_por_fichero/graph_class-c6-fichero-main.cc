@@ -51,3 +51,29 @@ int main(int argc, char* argv[]) {
   output_file.close();
   return 0;
 }
+
+/**
+ * @brief Prints the program purpose
+ **/
+void PrintProgramPurpose() {
+  std::cout << "Introduzca un fichero con los datos de un grafo en el "
+               "programa, y este le indicará si es válido o no. " << '\n' <<
+               "Para introducir los pares de vértices, hágalo separando " <<
+               "los números con un espacio. Cuando el programa lea -1, " <<
+               "este concluirá la lectura de los pares de vértices." << '\n'
+               << '\n';
+  PrintFileHelp();
+}
+
+/**
+ * @brief Prints how to execute its command
+ **/
+void PrintFileHelp() {
+  std::cout << "Método de uso del programa con ficheros:" << '\n' <<
+               "./graph_class-c6-fichero <fichero_de_entrada> " <<
+               "<fichero_de_salida>" << '\n' << "El programa reescribirá el " <<
+               "fichero de salida si este ya existe." << '\n' << "No se " <<
+               "olvide de incluir las extensiones de su archivo." << '\n' <<
+               "Se propone el uso de los archivos incluidos con el programa." <<
+               '\n' << "Para más información, consulte el README.md" << '\n';
+}

@@ -15,9 +15,7 @@
   */
 
 #include <iostream>
-#include <cstdlib>
 #include <vector>
-#include <algorithm> // std::find
 
 #include "car_class-c3.h"
 
@@ -26,9 +24,20 @@ int main(int argc, char* argv[]) {
     PrintProgramPurpose();
     return 1;
   }
-  int number_of_user_cars{std::atoi(argv[1])};
+  const int number_of_user_cars{std::atoi(argv[1])};
   std::vector<Car> list_of_user_cars;
   ReadUserCarData(number_of_user_cars, list_of_user_cars);
   PrintCars(list_of_user_cars);
   return 0;
+}
+
+/**
+ * @brief Prints the program purpose and how to execute its command
+ **/
+void PrintProgramPurpose() {
+  std::cerr << "Introduzca el número de coches que desee detallar " <<
+               "posteriormente en el programa:" << '\n' <<
+               "./car_class <número_entero_de_coches>" << '\n' <<
+               "Se le pedirá el nombre del coche, su tipo, modelo y precio " <<
+               "más adelante en el programa." << '\n';
 }

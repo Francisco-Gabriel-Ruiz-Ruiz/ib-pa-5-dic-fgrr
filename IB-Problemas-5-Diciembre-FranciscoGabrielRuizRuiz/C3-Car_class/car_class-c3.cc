@@ -34,20 +34,9 @@ Car::Car(std::string brand_of_car, std::string model_of_car,
     price_of_car_{price_of_car} { }
 
 /**
- * @brief Prints the program purpose and how to execute its command
- **/
-void PrintProgramPurpose() {
-  std::cerr << "Introduzca el número de coches que desee detallar " <<
-               "posteriormente en el programa:" << '\n' <<
-               "./car_class <número_entero_de_coches>" << '\n' <<
-               "Se le pedirá el nombre del coche, su tipo, modelo y precio " <<
-               "más adelante en el programa." << '\n';
-}
-
-/**
  * @brief Reads the Car object data from the keyboard
- * @param number_of_user_cars Amount of Cars the program expects to read
- * @param list_of_user_cars List that stores all the object Cars the user
+ * @param[in] number_of_user_cars Amount of Cars the program expects to read
+ * @param[out] list_of_user_cars List that stores all the object Cars the user
  *                          inputs
  **/
 void ReadUserCarData(int number_of_user_cars, std::vector<Car>& list_of_user_cars) {
@@ -74,19 +63,19 @@ void ReadUserCarData(int number_of_user_cars, std::vector<Car>& list_of_user_car
 /**
  * @brief Overloads the << operator by printing all the Car object data
  * @param out Necessary for the overload
- * @param user_car The Car object that will be printed
+ * @param[in] user_car The Car object that will be printed
  * @return Prints the Car object data with comas in between
  **/
 std::ostream& operator<<(std::ostream& out, const Car& user_car) {
-  out << user_car.brand_of_car_ << ", " << user_car.model_of_car_ << ", " <<
-         user_car.type_of_car_ << ", " << user_car.price_of_car_;
+  out << user_car.GetBrandOfCar()<< ", " << user_car.GetModelOfCar() << ", " <<
+         user_car.GetTypeOfCar() << ", " << user_car.GetPriceOfCar();
   return out;
 }
 
 /**
  * @brief Prints all the Car objects grouping them by types and indicating
  *        the price that is highest.
- * @param list_of_user_cars List that stores all the object Cars the user
+ * @param[in] list_of_user_cars List that stores all the object Cars the user
  *                          has inputted.
 */
 void PrintCars(std::vector<Car>& list_of_user_cars) {

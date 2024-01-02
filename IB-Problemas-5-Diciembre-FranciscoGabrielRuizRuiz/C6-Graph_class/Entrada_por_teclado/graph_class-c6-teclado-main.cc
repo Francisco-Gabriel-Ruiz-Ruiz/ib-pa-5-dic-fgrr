@@ -34,3 +34,14 @@ int main() {
   std::cout << user_graph << '\n' << "Su grafo es válido." << '\n';
   return 0;
 }
+
+/**
+ * @brief Prints the program purpose and how to execute its command
+ **/
+void PrintProgramPurpose() {
+  std::cout << "Introduzca los datos de un grafo en el programa, y este le " <<
+               "indicará si es válido o no. " << '\n' << "Para introducir " <<
+               "los pares de vértices, hágalo separando los números con un " <<
+               "espacio." << '\n' << "Para más información, consulte el " <<
+               "README.md" << '\n';
+}
